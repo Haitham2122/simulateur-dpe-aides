@@ -1,0 +1,111 @@
+.commune-autocomplete {
+  position: relative;
+  width: 100%;
+}
+
+.commune-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.commune-input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.commune-input:focus {
+  border-color: #4c6ef5;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 110, 245, 0.2);
+}
+
+.commune-clear-button {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.commune-clear-button:hover {
+  color: #666;
+  background-color: #f0f0f0;
+}
+
+.commune-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 4px;
+}
+
+.commune-suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.commune-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.commune-suggestion-item:hover {
+  background-color: #f5f7ff;
+}
+
+.commune-nom {
+  font-weight: 500;
+  color: #333;
+}
+
+.commune-code {
+  color: #666;
+  font-size: 14px;
+  background-color: #f0f2f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.no-suggestions {
+  padding: 12px 15px;
+  color: #666;
+  text-align: center;
+  font-style: italic;
+  border-bottom: 1px solid #eee;
+}
+
+/* Style pour les écrans mobiles */
+@media (max-width: 768px) {
+  .commune-suggestions {
+    max-height: 180px;
+  }
+  
+  .commune-suggestion-item {
+    padding: 12px 15px;
+  }
+} 

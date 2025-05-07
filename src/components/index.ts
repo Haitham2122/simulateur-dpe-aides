@@ -1,0 +1,10 @@
+export { default as Etape1_TypeBien } from './Etape1_TypeBien';
+export { default as Etape2_Localisation } from './Etape2_Localisation';
+export { default as Etape3_FormeEtMitoyennete } from './Etape3_FormeEtMitoyennete';
+export { default as Etape4_Isolation } from './Etape4_Isolation';
+export { default as Etape5_Chauffage } from './Etape5_Chauffage';
+export { default as Etape6_ClimVentilation } from './Etape6_ClimVentilation';
+export { default as Etape7_InfosUtilisateur } from './Etape7_InfosUtilisateur';
+export { default as Etape8_Resume } from './Etape8_Resume';
+export { default as SimulateurBilan } from './SimulateurBilan';
+export { default as Sidebar } from './Sidebar'; 

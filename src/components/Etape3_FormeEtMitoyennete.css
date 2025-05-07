@@ -1,0 +1,217 @@
+.etape-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.question-block {
+  margin-bottom: 30px;
+}
+
+.question-block h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.option-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #f8f9fa;
+}
+
+.option-button:hover {
+  border-color: #4c6ef5;
+  background-color: #f0f4ff;
+}
+
+.option-button.selected {
+  border-color: #4c6ef5;
+  background-color: #e6edff;
+}
+
+.option-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.option-button.selected .option-icon {
+  color: #4c6ef5;
+}
+
+.option-label {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: #555;
+}
+
+.option-button.selected .option-label {
+  color: #4c6ef5;
+}
+
+.selected-option-container {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.selected-option-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #4c6ef5;
+}
+
+.selected-option-content {
+  flex: 1;
+}
+
+.selected-option-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.selected-option-action {
+  margin-left: 10px;
+}
+
+.reset-selected-button {
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.reset-selected-button:hover {
+  color: #4c6ef5;
+}
+
+.surface-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+}
+
+.surface-input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  font-size: 16px;
+}
+
+.surface-input.error {
+  border-color: #dc3545;
+}
+
+.surface-unit {
+  position: absolute;
+  right: 15px;
+  color: #6c757d;
+  pointer-events: none;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Nouveaux styles pour le compteur de façades */
+.counter-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.counter-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.counter-button:hover:not(:disabled) {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.counter-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.counter-value {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 20px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.step-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.next-button {
+  padding: 12px 24px;
+  background-color: #4c6ef5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.next-button:hover:not(:disabled) {
+  background-color: #3b5bdb;
+}
+
+.next-button:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+} 

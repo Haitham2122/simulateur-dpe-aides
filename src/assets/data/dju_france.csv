@@ -1,0 +1,96 @@
+region,departement,code_postal,commune,base17,base18,base19
+Île-de-France,Paris,75000,Paris,2387,2650,2922
+Île-de-France,Seine-et-Marne,77000,Melun,2443,2711,2990
+Île-de-France,Yvelines,78000,Versailles,2411,2678,2955
+Île-de-France,Essonne,91000,Évry,2426,2693,2970
+Île-de-France,Hauts-de-Seine,92000,Nanterre,2398,2665,2939
+Île-de-France,Seine-Saint-Denis,93000,Bobigny,2402,2669,2943
+Île-de-France,Val-de-Marne,94000,Créteil,2405,2672,2946
+Île-de-France,Val-d'Oise,95000,Cergy,2430,2698,2976
+Grand Est,Ardennes,08000,Charleville-Mézières,2639,2914,3200
+Grand Est,Aube,10000,Troyes,2557,2831,3114
+Grand Est,Marne,51000,Châlons-en-Champagne,2580,2854,3138
+Grand Est,Haute-Marne,52000,Chaumont,2649,2924,3210
+Grand Est,Meurthe-et-Moselle,54000,Nancy,2624,2898,3183
+Grand Est,Meuse,55000,Bar-le-Duc,2632,2907,3192
+Grand Est,Moselle,57000,Metz,2610,2884,3168
+Grand Est,Bas-Rhin,67000,Strasbourg,2593,2867,3151
+Grand Est,Haut-Rhin,68000,Colmar,2571,2845,3128
+Hauts-de-France,Aisne,02000,Laon,2552,2826,3109
+Hauts-de-France,Nord,59000,Lille,2506,2779,3061
+Hauts-de-France,Oise,60000,Beauvais,2534,2808,3090
+Hauts-de-France,Pas-de-Calais,62000,Arras,2521,2794,3076
+Hauts-de-France,Somme,80000,Amiens,2527,2800,3083
+Normandie,Calvados,14000,Caen,2359,2621,2892
+Normandie,Eure,27000,Évreux,2469,2737,3016
+Normandie,Manche,50000,Saint-Lô,2321,2583,2853
+Normandie,Orne,61000,Alençon,2437,2705,2983
+Normandie,Seine-Maritime,76000,Rouen,2444,2712,2990
+Bretagne,Côtes-d'Armor,22000,Saint-Brieuc,2192,2451,2718
+Bretagne,Finistère,29000,Quimper,2067,2324,2589
+Bretagne,Ille-et-Vilaine,35000,Rennes,2231,2490,2758
+Bretagne,Morbihan,56000,Vannes,2175,2433,2700
+Pays de la Loire,Loire-Atlantique,44000,Nantes,2161,2419,2685
+Pays de la Loire,Maine-et-Loire,49000,Angers,2214,2473,2740
+Pays de la Loire,Mayenne,53000,Laval,2293,2554,2824
+Pays de la Loire,Sarthe,72000,Le Mans,2317,2579,2849
+Pays de la Loire,Vendée,85000,La Roche-sur-Yon,2123,2381,2646
+Centre-Val de Loire,Cher,18000,Bourges,2345,2607,2877
+Centre-Val de Loire,Eure-et-Loir,28000,Chartres,2428,2695,2972
+Centre-Val de Loire,Indre,36000,Châteauroux,2361,2623,2894
+Centre-Val de Loire,Indre-et-Loire,37000,Tours,2315,2577,2847
+Centre-Val de Loire,Loir-et-Cher,41000,Blois,2369,2631,2902
+Centre-Val de Loire,Loiret,45000,Orléans,2385,2648,2920
+Bourgogne-Franche-Comté,Côte-d'Or,21000,Dijon,2535,2809,3091
+Bourgogne-Franche-Comté,Doubs,25000,Besançon,2681,2956,3243
+Bourgogne-Franche-Comté,Jura,39000,Lons-le-Saunier,2649,2924,3210
+Bourgogne-Franche-Comté,Nièvre,58000,Nevers,2471,2739,3018
+Bourgogne-Franche-Comté,Haute-Saône,70000,Vesoul,2664,2938,3224
+Bourgogne-Franche-Comté,Saône-et-Loire,71000,Mâcon,2487,2755,3034
+Bourgogne-Franche-Comté,Yonne,89000,Auxerre,2492,2760,3039
+Bourgogne-Franche-Comté,Territoire de Belfort,90000,Belfort,2703,2979,3266
+Nouvelle-Aquitaine,Charente,16000,Angoulême,2166,2424,2690
+Nouvelle-Aquitaine,Charente-Maritime,17000,La Rochelle,2041,2297,2562
+Nouvelle-Aquitaine,Corrèze,19000,Tulle,2379,2642,2913
+Nouvelle-Aquitaine,Creuse,23000,Guéret,2486,2754,3033
+Nouvelle-Aquitaine,Dordogne,24000,Périgueux,2189,2448,2715
+Nouvelle-Aquitaine,Gironde,33000,Bordeaux,1934,2189,2452
+Nouvelle-Aquitaine,Landes,40000,Mont-de-Marsan,1875,2129,2391
+Nouvelle-Aquitaine,Lot-et-Garonne,47000,Agen,1992,2248,2512
+Nouvelle-Aquitaine,Pyrénées-Atlantiques,64000,Pau,1932,2187,2450
+Nouvelle-Aquitaine,Deux-Sèvres,79000,Niort,2181,2439,2707
+Nouvelle-Aquitaine,Vienne,86000,Poitiers,2226,2485,2752
+Nouvelle-Aquitaine,Haute-Vienne,87000,Limoges,2341,2603,2873
+Occitanie,Ariège,09000,Foix,2248,2507,2775
+Occitanie,Aude,11000,Carcassonne,1825,2078,2339
+Occitanie,Aveyron,12000,Rodez,2486,2754,3033
+Occitanie,Gard,30000,Nîmes,1678,1930,2189
+Occitanie,Haute-Garonne,31000,Toulouse,1875,2129,2391
+Occitanie,Gers,32000,Auch,1912,2167,2429
+Occitanie,Hérault,34000,Montpellier,1592,1844,2102
+Occitanie,Lot,46000,Cahors,2161,2419,2685
+Occitanie,Lozère,48000,Mende,2773,3050,3338
+Occitanie,Hautes-Pyrénées,65000,Tarbes,1989,2245,2509
+Occitanie,Pyrénées-Orientales,66000,Perpignan,1486,1736,1994
+Occitanie,Tarn,81000,Albi,1903,2158,2420
+Occitanie,Tarn-et-Garonne,82000,Montauban,1843,2096,2358
+Auvergne-Rhône-Alpes,Ain,01000,Bourg-en-Bresse,2448,2716,2994
+Auvergne-Rhône-Alpes,Allier,03000,Moulins,2483,2751,3030
+Auvergne-Rhône-Alpes,Ardèche,07000,Privas,2193,2452,2719
+Auvergne-Rhône-Alpes,Cantal,15000,Aurillac,2614,2888,3173
+Auvergne-Rhône-Alpes,Drôme,26000,Valence,2128,2386,2652
+Auvergne-Rhône-Alpes,Isère,38000,Grenoble,2432,2699,2976
+Auvergne-Rhône-Alpes,Loire,42000,Saint-Étienne,2408,2675,2952
+Auvergne-Rhône-Alpes,Haute-Loire,43000,Le Puy-en-Velay,2689,2964,3251
+Auvergne-Rhône-Alpes,Puy-de-Dôme,63000,Clermont-Ferrand,2401,2668,2942
+Auvergne-Rhône-Alpes,Rhône,69000,Lyon,2325,2587,2857
+Auvergne-Rhône-Alpes,Savoie,73000,Chambéry,2508,2781,3063
+Auvergne-Rhône-Alpes,Haute-Savoie,74000,Annecy,2615,2889,3174
+Provence-Alpes-Côte d'Azur,Alpes-de-Haute-Provence,04000,Digne-les-Bains,2362,2624,2895
+Provence-Alpes-Côte d'Azur,Hautes-Alpes,05000,Gap,2816,3094,3383
+Provence-Alpes-Côte d'Azur,Alpes-Maritimes,06000,Nice,1421,1670,1927
+Provence-Alpes-Côte d'Azur,Bouches-du-Rhône,13000,Marseille,1532,1783,2041
+Provence-Alpes-Côte d'Azur,Var,83000,Toulon,1386,1635,1891
+Provence-Alpes-Côte d'Azur,Vaucluse,84000,Avignon,1745,1997,2257
+Corse,Corse-du-Sud,20000,Ajaccio,1361,1610,1865
+Corse,Haute-Corse,20200,Bastia,1321,1569,1825 
