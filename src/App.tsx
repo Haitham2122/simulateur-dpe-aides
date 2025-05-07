@@ -22,7 +22,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+    <div className="App">
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/dpe" element={
@@ -36,13 +36,13 @@ function App() {
           <Route path="/aides" element={
             <>
               <SidebarAides currentStep={currentStepAides} />
-              <main className="App-main">
+      <main className="App-main">
                 <SimulateurAides onStepChange={handleStepChangeAides} />
-              </main>
+      </main>
             </>
           } />
         </Routes>
-      </div>
+    </div>
     </Router>
   );
 }

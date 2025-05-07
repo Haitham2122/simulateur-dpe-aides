@@ -204,7 +204,7 @@ const Etape7_InfosUtilisateur: React.FC<EtapeProps> = ({ onComplete, onReturn, d
           {telephoneError && <p className="error-message">{telephoneError}</p>}
         </div>
         
-        <div className="form-group checkbox-group">
+        <div className="checkbox-group checkbox-row">
           <div className="checkbox-container">
             <input
               type="checkbox"
@@ -216,9 +216,6 @@ const Etape7_InfosUtilisateur: React.FC<EtapeProps> = ({ onComplete, onReturn, d
               Je souhaite recevoir la newsletter
             </label>
           </div>
-        </div>
-        
-        <div className="form-group checkbox-group">
           <div className="checkbox-container">
             <input
               type="checkbox"

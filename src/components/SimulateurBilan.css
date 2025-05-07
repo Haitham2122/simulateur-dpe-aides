@@ -445,4 +445,19 @@
   .options-grid-binary {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.checkbox-group.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .checkbox-group.checkbox-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 } 
