@@ -1,0 +1,141 @@
+.user-info-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.user-info-container h2 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-group input.error {
+  border-color: #e74c3c;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.options-grid-binary {
+  display: flex;
+  gap: 15px;
+}
+
+.option-button {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: all 0.2s;
+}
+
+.option-button.selected {
+  background-color: #e8f0fe;
+  border-color: #4285f4;
+  color: #4285f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.option-button .option-label {
+  font-weight: 500;
+}
+
+.hidden-radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-group {
+  margin-bottom: 15px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
+.conditions-link {
+  color: #4285f4;
+  text-decoration: none;
+}
+
+.conditions-link:hover {
+  text-decoration: underline;
+}
+
+.buttons-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn-retour {
+  padding: 12px 25px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 4px;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-retour:hover {
+  background-color: #e1e1e1;
+}
+
+.btn-valider {
+  padding: 12px 25px;
+  background-color: #4285f4;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-valider:hover {
+  background-color: #3367d6;
+}
+
+/* If there's no return button, center the validate button */
+.buttons-group:has(> :only-child) {
+  justify-content: center;
+} 

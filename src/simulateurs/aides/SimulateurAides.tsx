@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './SimulateurAides.css';
 import CommuneAutocomplete from '../../components/CommuneAutocomplete';
+import UserInfoForm, { UserInfoData } from '../../components/UserInfoForm';
+import { Civilite } from '../../types/types';
 
 // Icônes pour le simulateur
 const HomeIcon = () => (
@@ -49,15 +51,15 @@ const TaxIcon = () => (
 
 // Types pour le formulaire
 interface FormDataAides {
-  proprietaireStatut?: string;
-  proprietaireType?: string;
+  propriétaireStatut?: string;
+  propriétaireType?: string;
   logementType?: string;
   logementSurface?: number;
   logementConstruction?: string;
   residencePrincipale?: string;
   logementCommune?: string;
   logementCommuneNom?: string;
-  logementProprietaireOccupant?: string;
+  logementPropriétaireOccupant?: string;
   menagePersonnes?: number;
   menageRevenu?: number;
   dpeActuel?: number;
@@ -68,6 +70,14 @@ interface FormDataAides {
   parcoursAide?: string;
   coproFidelite?: string;
   taxeFonciereConditionDepenses?: string;
+  // User information fields
+  civilite?: Civilite;
+  prenom?: string;
+  nom?: string;
+  email?: string;
+  telephone?: string;
+  newsletter?: boolean;
+  acceptConditions?: boolean;
   [key: string]: any;
 }
 
@@ -96,20 +106,35 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
   const [showCompletedSteps, setShowCompletedSteps] = useState<boolean>(false);
   const [resultat, setResultat] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [formError, setFormError] = useState<string>('');
 
   // Étape 1: Statut et situation du demandeur
   const Etape1_Statut: React.FC<EtapeProps> = ({ onComplete, onReturn, data }) => {
-    const [statut, setStatut] = useState<string>(data.proprietaireStatut || '');
-    const [proprietaireType, setProprietaireType] = useState<string>(data.proprietaireType || '');
+    const [statut, setStatut] = useState<string>(data?.propriétaireStatut || '');
+    const [propriétaireType, setPropriétaireType] = useState<string>(data?.propriétaireType || '');
+    const [formError, setFormError] = useState<string>('');
     
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      const isOccupant = statut === 'proprietaire' && proprietaireType === 'occupant';
+      
+      // Validation
+      if (!statut) {
+        setFormError('Veuillez sélectionner votre statut');
+        return;
+      }
+      
+      if (statut === 'propriétaire' && !propriétaireType) {
+        setFormError('Veuillez préciser votre situation');
+        return;
+      }
+      
+      setFormError('');
+      const isOccupant = statut === 'propriétaire' && propriétaireType === 'occupant';
       
       onComplete({ 
-        proprietaireStatut: statut,
-        proprietaireType: statut === 'proprietaire' ? proprietaireType : null,
-        logementProprietaireOccupant: isOccupant ? 'oui' : 'non'
+        propriétaireStatut: statut,
+        propriétaireType: statut === 'propriétaire' ? propriétaireType : null,
+        logementPropriétaireOccupant: isOccupant ? 'oui' : 'non'
       });
     };
 
@@ -124,8 +149,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
             <label>Vous êtes</label>
             <div className="options-grid">
               <div 
-                className={`option-button ${statut === 'proprietaire' ? 'selected' : ''}`}
-                onClick={() => setStatut('proprietaire')}
+                className={`option-button ${statut === 'propriétaire' ? 'selected' : ''}`}
+                onClick={() => setStatut('propriétaire')}
               >
                 <div className="option-icon">
                   <HomeIcon />
@@ -134,10 +159,11 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
                 <input 
                   type="radio" 
                   name="statut" 
-                  value="proprietaire"
-                  checked={statut === 'proprietaire'}
+                  value="propriétaire"
+                  checked={statut === 'propriétaire'}
                   onChange={() => {}}
                   className="hidden-radio"
+                  required
                 />
               </div>
               <div 
@@ -158,8 +184,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
                 />
               </div>
               <div 
-                className={`option-button ${statut === 'non proprietaire' ? 'selected' : ''}`}
-                onClick={() => setStatut('non proprietaire')}
+                className={`option-button ${statut === 'non propriétaire' ? 'selected' : ''}`}
+                onClick={() => setStatut('non propriétaire')}
               >
                 <div className="option-icon">
                   <PersonIcon />
@@ -168,8 +194,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
                 <input 
                   type="radio" 
                   name="statut" 
-                  value="non proprietaire"
-                  checked={statut === 'non proprietaire'}
+                  value="non propriétaire"
+                  checked={statut === 'non propriétaire'}
                   onChange={() => {}}
                   className="hidden-radio"
                 />
@@ -177,7 +203,7 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
             </div>
           </div>
 
-          {statut === 'proprietaire' && (
+          {statut === 'propriétaire' && (
             <div className="form-group">
               <label>Précisez votre situation</label>
               <div className="radio-group">
@@ -187,9 +213,9 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
                     id="occupant" 
                     name="type" 
                     value="occupant"
-                    checked={proprietaireType === 'occupant'}
-                    onChange={(e) => setProprietaireType(e.target.value)}
-                    required
+                    checked={propriétaireType === 'occupant'}
+                    onChange={(e) => setPropriétaireType(e.target.value)}
+                    required={statut === 'propriétaire'}
                   />
                   <label htmlFor="occupant">Propriétaire occupant</label>
                 </div>
@@ -199,8 +225,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
                     id="bailleur" 
                     name="type" 
                     value="bailleur"
-                    checked={proprietaireType === 'bailleur'}
-                    onChange={(e) => setProprietaireType(e.target.value)}
+                    checked={propriétaireType === 'bailleur'}
+                    onChange={(e) => setPropriétaireType(e.target.value)}
                   />
                   <label htmlFor="bailleur">Propriétaire bailleur</label>
                 </div>
@@ -210,8 +236,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
                     id="usufruitier" 
                     name="type" 
                     value="usufruitier"
-                    checked={proprietaireType === 'usufruitier'}
-                    onChange={(e) => setProprietaireType(e.target.value)}
+                    checked={propriétaireType === 'usufruitier'}
+                    onChange={(e) => setPropriétaireType(e.target.value)}
                   />
                   <label htmlFor="usufruitier">Usufruitier</label>
                 </div>
@@ -221,14 +247,16 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
                     id="autre" 
                     name="type" 
                     value="autre"
-                    checked={proprietaireType === 'autre'}
-                    onChange={(e) => setProprietaireType(e.target.value)}
+                    checked={propriétaireType === 'autre'}
+                    onChange={(e) => setPropriétaireType(e.target.value)}
                   />
                   <label htmlFor="autre">Autre cas (indivision, etc.)</label>
                 </div>
               </div>
             </div>
           )}
+
+          {formError && <p className="error-message">{formError}</p>}
 
           <div className="buttons-group">
             {currentStep > 0 && (
@@ -243,13 +271,37 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
 
   // Étape 2: Type et caractéristiques du logement
   const Etape2_Logement: React.FC<EtapeProps> = ({ onComplete, onReturn, data }) => {
-    const [type, setType] = useState<string>(data.logementType || '');
-    const [surface, setSurface] = useState<string>(data.logementSurface?.toString() || '');
-    const [construction, setConstruction] = useState<string>(data.logementConstruction?.replace(/['"]/g, '') || 'au moins 15 ans');
-    const [principale, setPrincipale] = useState<string>(data.residencePrincipale || 'oui');
+    const [type, setType] = useState<string>(data?.logementType || '');
+    const [surface, setSurface] = useState<string>(data?.logementSurface?.toString() || '');
+    const [construction, setConstruction] = useState<string>(data?.logementConstruction?.replace(/['"]/g, '') || 'au moins 15 ans');
+    const [principale, setPrincipale] = useState<string>(data?.residencePrincipale || 'oui');
+    const [formError, setFormError] = useState<string>('');
     
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      
+      // Validation
+      if (!type) {
+        setFormError('Veuillez sélectionner le type de logement');
+        return;
+      }
+      
+      if (!surface || parseInt(surface, 10) <= 0) {
+        setFormError('Veuillez entrer une surface valide');
+        return;
+      }
+      
+      if (!construction) {
+        setFormError('Veuillez sélectionner la période de construction');
+        return;
+      }
+      
+      if (!principale) {
+        setFormError('Veuillez indiquer s\'il s\'agit de votre résidence principale');
+        return;
+      }
+      
+      setFormError('');
       onComplete({ 
         logementType: type,
         logementSurface: parseInt(surface, 10),
@@ -366,6 +418,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
             </div>
           </div>
           
+          {formError && <p className="error-message">{formError}</p>}
+
           <div className="buttons-group">
             <button type="button" className="btn-retour" onClick={onReturn}>Retour</button>
             <button type="submit" className="btn-suivant">Suivant</button>
@@ -377,10 +431,11 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
 
   // Étape 3: Situation géographique et financière
   const Etape3_Situation: React.FC<EtapeProps> = ({ onComplete, onReturn, data }) => {
-    const [commune, setCommune] = useState<string>(data.logementCommune?.replace(/['"]/g, '') || '');
-    const [communeNom, setCommuneNom] = useState<string>('');
-    const [personnes, setPersonnes] = useState<number>(data.menagePersonnes || 1);
-    const [revenu, setRevenu] = useState<string>(data.menageRevenu?.toString() || '');
+    const [commune, setCommune] = useState<string>(data?.logementCommune?.replace(/['"]/g, '') || '');
+    const [communeNom, setCommuneNom] = useState<string>(data?.logementCommuneNom || '');
+    const [personnes, setPersonnes] = useState<number>(data?.menagePersonnes || 1);
+    const [revenu, setRevenu] = useState<string>(data?.menageRevenu?.toString() || '');
+    const [formError, setFormError] = useState<string>('');
     
     const handleCommuneChange = (code: string, nom: string) => {
       setCommune(code);
@@ -389,6 +444,24 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
     
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      
+      // Validation
+      if (!commune) {
+        setFormError('Veuillez sélectionner votre commune');
+        return;
+      }
+      
+      if (personnes < 1) {
+        setFormError('Le nombre de personnes doit être au moins 1');
+        return;
+      }
+      
+      if (!revenu || parseInt(revenu, 10) < 0) {
+        setFormError('Veuillez saisir un revenu fiscal valide');
+        return;
+      }
+      
+      setFormError('');
       onComplete({ 
         logementCommune: commune,
         logementCommuneNom: communeNom,
@@ -440,6 +513,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
             <small>Le revenu fiscal de référence se trouve sur la première page de votre dernier avis d'impôt sur le revenu.</small>
           </div>
           
+          {formError && <p className="error-message">{formError}</p>}
+          
           <div className="buttons-group">
             <button type="button" className="btn-retour" onClick={onReturn}>Retour</button>
             <button type="submit" className="btn-suivant">Suivant</button>
@@ -451,12 +526,13 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
 
   // Étape 4: Performance énergétique
   const Etape4_Performance: React.FC<EtapeProps> = ({ onComplete, onReturn, data }) => {
-    const [dpeActuel, setDpeActuel] = useState<number>(data.dpeActuel || 0);
-    const [dpeVise, setDpeVise] = useState<number>(data.dpeVise || 0);
-    const [gainEnergetique, setGainEnergetique] = useState<string>(data.gainEnergetique || 'entre 35 % et 50 %');
-    const [sortiePassoire, setSortiePassoire] = useState<string>(data.sortiePassoire || 'oui');
+    const [dpeActuel, setDpeActuel] = useState<number>(data?.dpeActuel || 0);
+    const [dpeVise, setDpeVise] = useState<number>(data?.dpeVise || 0);
+    const [gainEnergetique, setGainEnergetique] = useState<string>(data?.gainEnergetique || 'entre 35 % et 50 %');
+    const [sortiePassoire, setSortiePassoire] = useState<string>(data?.sortiePassoire || 'oui');
+    const [formError, setFormError] = useState<string>('');
     
-    const isAppartement = data.logementType === 'appartement';
+    const isAppartement = data?.logementType === 'appartement';
     
     // Lettres DPE correspondant aux valeurs numériques
     const dpeLetters = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -473,6 +549,34 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
     
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      
+      // Validation
+      if (dpeActuel === 0) {
+        setFormError('Veuillez sélectionner le DPE actuel de votre logement');
+        return;
+      }
+      
+      if (dpeVise === 0) {
+        setFormError('Veuillez sélectionner le DPE visé après travaux');
+        return;
+      }
+      
+      if (dpeVise >= dpeActuel) {
+        setFormError('Le DPE visé doit être meilleur que le DPE actuel');
+        return;
+      }
+      
+      if (isAppartement && !gainEnergetique) {
+        setFormError('Veuillez sélectionner le gain énergétique envisagé');
+        return;
+      }
+      
+      if (isAppartement && !sortiePassoire) {
+        setFormError('Veuillez indiquer si votre immeuble atteindra au moins la classe D');
+        return;
+      }
+      
+      setFormError('');
       onComplete({ 
         dpeActuel: dpeActuel,
         dpeVise: dpeVise,
@@ -588,14 +692,16 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
           {/* Validation du formulaire */}
           <div className="buttons-group">
             <button type="button" className="btn-retour" onClick={onReturn}>Retour</button>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="btn-suivant"
               disabled={dpeActuel === 0 || dpeVise === 0}
             >
               Suivant
             </button>
           </div>
+          
+          {formError && <p className="error-message">{formError}</p>}
         </form>
       </div>
     );
@@ -603,14 +709,33 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
 
   // Étape 5: Projet de rénovation
   const Etape5_Projet: React.FC<EtapeProps> = ({ onComplete, onReturn, data }) => {
-    const [projetTravaux, setProjetTravaux] = useState<string>(data.projetTravaux?.toString() || '');
-    const [parcoursAide, setParcoursAide] = useState<string>(data.parcoursAide?.replace(/['"]/g, '') || 'ampleur');
-    const [coproFidelite, setCoproFidelite] = useState<string>(data.coproFidelite || 'non');
+    const [projetTravaux, setProjetTravaux] = useState<string>(data?.projetTravaux?.toString() || '');
+    const [parcoursAide, setParcoursAide] = useState<string>(data?.parcoursAide?.replace(/['"]/g, '') || 'ampleur');
+    const [coproFidelite, setCoproFidelite] = useState<string>(data?.coproFidelite || 'non');
+    const [formError, setFormError] = useState<string>('');
     
-    const isAppartement = data.logementType === 'appartement';
+    const isAppartement = data?.logementType === 'appartement';
     
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      
+      // Validation
+      if (!projetTravaux || parseInt(projetTravaux, 10) <= 0) {
+        setFormError('Veuillez entrer un montant valide pour les travaux');
+        return;
+      }
+      
+      if (!parcoursAide) {
+        setFormError('Veuillez sélectionner un type de parcours d\'aide');
+        return;
+      }
+      
+      if (isAppartement && !coproFidelite) {
+        setFormError('Veuillez indiquer si votre copropriété est fragile ou en difficulté');
+        return;
+      }
+      
+      setFormError('');
       onComplete({ 
         projetTravaux: parseInt(projetTravaux, 10),
         parcoursAide: parcoursAide,
@@ -691,6 +816,8 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
             <button type="button" className="btn-retour" onClick={onReturn}>Retour</button>
             <button type="submit" className="btn-suivant">Suivant</button>
           </div>
+          
+          {formError && <p className="error-message">{formError}</p>}
         </form>
       </div>
     );
@@ -698,11 +825,20 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
 
   // Étape 6: Taxe foncière et autres critères
   const Etape6_Final: React.FC<EtapeProps> = ({ onComplete, onReturn, data }) => {
-    const [taxeFonciere, setTaxeFonciere] = useState<string>(data.taxeFonciereConditionDepenses || 'oui');
+    const [taxeFonciere, setTaxeFonciere] = useState<string>(data?.taxeFonciereConditionDepenses || 'oui');
+    const [formError, setFormError] = useState<string>('');
     
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      onComplete({ 
+      
+      // Validation
+      if (!taxeFonciere) {
+        setFormError('Veuillez sélectionner une option pour la taxe foncière');
+        return;
+      }
+      
+      setFormError('');
+      onComplete({
         taxeFonciereConditionDepenses: taxeFonciere
       });
     };
@@ -717,28 +853,29 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
           <div className="form-group">
             <label>Condition de dépenses pour taxe foncière</label>
             <div className="options-grid">
-              <div 
+              <div
                 className={`option-button ${taxeFonciere === 'oui' ? 'selected' : ''}`}
                 onClick={() => setTaxeFonciere('oui')}
               >
                 <span className="option-label">Oui</span>
-                <input 
-                  type="radio" 
-                  name="taxeFonciereConditionDepenses" 
+                <input
+                  type="radio"
+                  name="taxeFonciereConditionDepenses"
                   value="oui"
                   checked={taxeFonciere === 'oui'}
                   onChange={() => {}}
                   className="hidden-radio"
+                  required
                 />
               </div>
-              <div 
+              <div
                 className={`option-button ${taxeFonciere === 'non' ? 'selected' : ''}`}
                 onClick={() => setTaxeFonciere('non')}
               >
                 <span className="option-label">Non</span>
-                <input 
-                  type="radio" 
-                  name="taxeFonciereConditionDepenses" 
+                <input
+                  type="radio"
+                  name="taxeFonciereConditionDepenses"
                   value="non"
                   checked={taxeFonciere === 'non'}
                   onChange={() => {}}
@@ -747,13 +884,38 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
               </div>
             </div>
           </div>
-          
+
+          {formError && <p className="error-message">{formError}</p>}
+
           <div className="buttons-group">
             <button type="button" className="btn-retour" onClick={onReturn}>Retour</button>
             <button type="submit" className="btn-suivant">Calculer mes aides</button>
           </div>
         </form>
       </div>
+    );
+  };
+
+  // Étape 7: Informations utilisateur
+  const Etape7_Utilisateur: React.FC<EtapeProps> = ({ onComplete, onReturn, data }) => {
+    const extractUserData = () => {
+      return {
+        civilite: data.civilite,
+        prenom: data.prenom,
+        nom: data.nom,
+        email: data.email,
+        telephone: data.telephone,
+        newsletter: data.newsletter,
+        acceptConditions: data.acceptConditions
+      } as UserInfoData;
+    };
+
+    return (
+      <UserInfoForm
+        onComplete={onComplete}
+        onReturn={onReturn}
+        data={extractUserData()}
+      />
     );
   };
 
@@ -902,6 +1064,7 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
     { component: Etape4_Performance, title: "Performance énergétique", icon: EnergyIcon },
     { component: Etape5_Projet, title: "Projet de rénovation", icon: ProjectIcon },
     { component: Etape6_Final, title: "Informations complémentaires", icon: TaxIcon },
+    { component: Etape7_Utilisateur, title: "Vos informations", icon: PersonIcon },
   ];
 
   // Gérer la complétion d'une étape
@@ -940,83 +1103,76 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
   // Calculer les aides disponibles
   const calculerAides = async (data: FormDataAides) => {
     setIsLoading(true);
-    
+
     try {
       // Créer l'objet pour les paramètres
       const payload: Record<string, any> = {};
-      
+
       // Paramètres obligatoires - nettoyer et formater correctement les valeurs
-      if (data.proprietaireStatut) payload['vous . propriétaire . statut'] = data.proprietaireStatut.replace(/['"]/g, '');
+      if (data.propriétaireStatut) {
+        const properStatut = data.propriétaireStatut.replace(/['"]/g, '');
+        console.log('Statut propriétaire:', properStatut);
+        payload['vous . propriétaire . statut'] = properStatut;
+      }
       if (data.menagePersonnes) payload['ménage . personnes'] = data.menagePersonnes;
       if (data.menageRevenu) payload['ménage . revenu'] = data.menageRevenu;
       if (data.dpeActuel) payload['DPE . actuel'] = data.dpeActuel;
       if (data.dpeVise) payload['projet . DPE visé'] = data.dpeVise;
       if (data.projetTravaux) payload['projet . travaux'] = data.projetTravaux;
-      
+
       // Nettoyer correctement toutes les chaînes de caractères
       if (data.logementCommune) payload['logement . commune'] = data.logementCommune.replace(/['"]/g, '');
-      if (data.logementProprietaireOccupant) payload['logement . propriétaire occupant'] = data.logementProprietaireOccupant;
+      if (data.logementPropriétaireOccupant) payload['logement . propriétaire occupant'] = data.logementPropriétaireOccupant;
       if (data.residencePrincipale) payload['logement . résidence principale propriétaire'] = data.residencePrincipale;
       if (data.logementConstruction) payload['logement . période de construction'] = data.logementConstruction.replace(/['"]/g, '');
       if (data.parcoursAide) payload['parcours d\'aide'] = data.parcoursAide.replace(/['"]/g, '');
       if (data.taxeFonciereConditionDepenses) payload['taxe foncière . condition de dépenses'] = data.taxeFonciereConditionDepenses;
-      
+                         
       // Paramètres optionnels
       if (data.logementType) payload['logement . type'] = data.logementType;
       if (data.logementSurface) payload['logement . surface'] = data.logementSurface;
-      
+
       // Paramètres spécifiques aux copropriétés
       if (data.logementType === 'appartement') {
         if (data.gainEnergetique) payload['copropriété . gain énergétique'] = data.gainEnergetique;
         if (data.sortiePassoire) payload['copropriété . bonus sortie passoire'] = data.sortiePassoire;
         if (data.coproFidelite) payload['copropriété . bonus copropriété fragile'] = data.coproFidelite;
       }
-      
+
       // Déboguer la charge utile avant l'envoi
       console.log('Payload avant envoi:', payload);
+      console.log('JSON du payload:', JSON.stringify(payload));
+
+      // Utilisation de l'URL complète de l'API
+      const apiUrl = '/api/v1/?fields=eligibilite';
+
+      console.log('Tentative avec URL directe');
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
       
-      // L'API attend un POST avec un corps JSON, pas un GET avec des paramètres d'URL
-      // Utilisation d'un service de proxy CORS pour contourner l'erreur CORS
-      const apiBaseUrl = 'https://mesaidesreno.beta.gouv.fr';
-      const apiPath = '/api/v1/?fields=eligibilite';
-      
-      // Essayer d'abord avec l'URL directe
-      try {
-        console.log('Tentative avec URL directe');
-        const response = await fetch(apiBaseUrl + apiPath, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-        
-        // Vérifier la réponse HTTP
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error(`Erreur HTTP ${response.status}: ${errorText}`);
-          throw new Error(`Erreur de l'API: ${response.status} ${response.statusText}`);
-        }
-        
-        // Analyser la réponse JSON
-        const result = await response.json();
-        handleResults(result);
-        
-      } catch (error) {
-        console.error("Erreur avec l'URL directe, essai avec données simulées:", error);
-        
-        // Utiliser des données simulées en cas d'échec (erreur CORS)
-        const simulatedResult = simulateApiResponse(payload);
-        handleResults(simulatedResult);
+      // Vérifier la réponse HTTP
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Erreur HTTP ${response.status}: ${errorText}`);
+        throw new Error(`Erreur de l'API: ${response.status} ${response.statusText}`);
       }
-      
+
+      // Analyser la réponse JSON
+      const result = await response.json();
+      handleResults(result);
+
     } catch (error) {
       console.error("Erreur lors de la requête API:", error);
       setResultat(null);
-      
+
       // Afficher un message d'erreur plus explicite
       alert(`Une erreur est survenue lors du calcul des aides: ${error instanceof Error ? error.message : 'Erreur inconnue'}. Veuillez vérifier vos informations et réessayer.`);
-      
     } finally {
       setIsLoading(false);
     }
@@ -1043,100 +1199,6 @@ const SimulateurAides: React.FC<SimulateurAidesProps> = ({ onStepChange }) => {
     }
     
     setCurrentStep(steps.length); // Passer à l'affichage des résultats
-  };
-  
-  // Simuler une réponse de l'API en fonction des données soumises
-  const simulateApiResponse = (data: any) => {
-    // Simule une réponse basée sur les exemples fournis
-    return [
-      {
-        "label": "MaPrimeRénov' accompagnée",
-        "fields": "MPR . accompagnée",
-        "type": "remboursement",
-        "status": true,
-        "value": "45 000 €",
-        "rawValue": 45000,
-        "missingVariables": []
-      },
-      {
-        "label": "Mon Accompagnateur Rénov' Subvention",
-        "fields": "MPR . accompagnée . prise en charge MAR",
-        "type": "remboursement",
-        "status": true,
-        "value": "1 500 €",
-        "rawValue": 1500,
-        "missingVariables": []
-      },
-      {
-        "label": "CEE coup de pouce « Rénovation d'ampleur »",
-        "fields": "CEE . rénovation d'ampleur",
-        "type": "remboursement",
-        "status": false,
-        "value": "Non applicable",
-        "rawValue": null,
-        "missingVariables": []
-      },
-      {
-        "label": "MaPrimeRénov' copropriété prime individuelle",
-        "fields": "ampleur . prime individuelle copropriété",
-        "type": "remboursement",
-        "status": null,
-        "value": "Pas encore défini",
-        "rawValue": null,
-        "missingVariables": [
-          "logement . type"
-        ]
-      },
-      {
-        "label": "Éco-prêt à taux zéro (Éco-PTZ)",
-        "fields": "PTZ",
-        "type": "prêt",
-        "status": true,
-        "value": "50 000 €",
-        "rawValue": 50000,
-        "taux": "0 %",
-        "durée": "20 ans",
-        "missingVariables": []
-      },
-      {
-        "label": "Prêt avance rénovation 0 %",
-        "fields": "PAR",
-        "type": "prêt",
-        "status": null,
-        "value": "Pas encore défini",
-        "rawValue": null,
-        "taux": "0 %",
-        "durée": "10 ans",
-        "missingVariables": [
-          "logement . type travaux"
-        ]
-      },
-      {
-        "label": "Denormandie Réduction d'impôt location",
-        "fields": "denormandie",
-        "type": "exonération fiscale",
-        "status": false,
-        "value": "Non applicable",
-        "rawValue": null,
-        "taux": "18 %",
-        "durée": "9 ans",
-        "missingVariables": []
-      },
-      {
-        "label": "Exonération de taxe foncière",
-        "fields": "taxe foncière",
-        "type": "exonération fiscale",
-        "status": null,
-        "value": "Pas encore défini",
-        "rawValue": null,
-        "taux": "50 %",
-        "durée": "3 ans",
-        "missingVariables": [
-          "logement . type",
-          "logement . taxe foncière"
-        ]
-      }
-    ];
   };
 
   // Retourner à une étape précédente
