@@ -14,7 +14,7 @@ let communesData: Commune[] = [];
 export const chargerCommunes = async (): Promise<void> => {
   try {
     // Chemin vers le fichier CSV dans le dossier public
-    const response = await fetch('/assets/communes-france.csv');
+    const response = await fetch('/assets/v_commune_2025.csv');
     
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement du fichier CSV: ${response.status}`);
@@ -26,9 +26,9 @@ export const chargerCommunes = async (): Promise<void> => {
     const lines = csvText.split('\n');
     const communes: Commune[] = [];
     
-    // Format du CSV: Commune;Codepos;Departement;INSEE
-    // Ignorer la première ligne car c'est un en-tête
-    const startIndex = 1;
+    // Format du CSV v_commune_2025: COM;12345;27;NOM DE COMMUNE
+    // Ignorer la première ligne si c'est un en-tête
+    const startIndex = lines[0].startsWith('TYPECOM') ? 1 : 0;
     
     for (let i = startIndex; i < lines.length; i++) {
       const line = lines[i].trim();
@@ -39,8 +39,8 @@ export const chargerCommunes = async (): Promise<void> => {
       
       if (fields.length >= 4) {
         communes.push({
-          code: fields[3].trim(), // Code INSEE est dans la 4ème colonne
-          nom: fields[0].trim()   // Nom de la commune est dans la 1ère colonne
+          code: fields[1].trim(), // Code INSEE est dans la 2ème colonne
+          nom: fields[3].trim()   // Nom de la commune est dans la 4ème colonne
         });
       }
     }
